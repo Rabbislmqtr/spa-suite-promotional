@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Spa Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --spa-green: #4f7b57;
+      --spa-green-dark: #274b35;
+      --spa-green-deep: #2f5f3d;
+      --spa-gold: #c79a45;
+      --spa-gold-light: #e4bb67;
+      --spa-light: #f0f5f1;
+      --text-dark: #1a1a2e;
+      --text-muted: #6b7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); }
+    html { scroll-behavior: smooth; }
+
+    /* Nav */
+    .nav {
+      background: var(--spa-green-dark);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-brand span { color: var(--spa-gold-light); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta {
+      background: var(--spa-gold);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+    .nav-cta:hover { background: #b8893a; }
+
+    /* Hero */
+    .page-hero {
+      background: linear-gradient(135deg, var(--spa-green-dark) 0%, var(--spa-green) 100%);
+      color: #fff;
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 16px; }
+    .page-hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content */
+    .content-section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+    .content-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: var(--spa-green-dark); }
+    .content-section p { font-size: 1.05rem; line-height: 1.8; color: #444; margin-bottom: 20px; }
+    .content-section .accent-line { width: 60px; height: 4px; background: var(--spa-gold); border-radius: 2px; margin-bottom: 32px; }
+
+    /* Values Grid */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .value-card {
+      background: var(--spa-light);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    .value-card .icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .value-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--spa-green-dark); }
+    .value-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* Timeline */
+    .timeline { margin-top: 40px; position: relative; padding-left: 30px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--spa-gold);
+      border-radius: 2px;
+    }
+    .timeline-item { margin-bottom: 32px; position: relative; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--spa-green);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px var(--spa-gold);
+    }
+    .timeline-item .year { font-size: 0.8rem; font-weight: 700; color: var(--spa-gold); text-transform: uppercase; letter-spacing: 1px; }
+    .timeline-item h3 { font-size: 1.1rem; font-weight: 700; margin: 4px 0 6px; }
+    .timeline-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* Stats */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding: 60px 20px;
+      background: var(--spa-green-dark);
+      color: #fff;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .number { font-size: 2.8rem; font-weight: 900; color: var(--spa-gold-light); }
+    .stat-item .label { font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--spa-green) 0%, var(--spa-green-dark) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .cta-section h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; opacity: 0.9; max-width: 500px; margin: 0 auto 28px; }
+    .btn-primary-custom {
+      display: inline-block;
+      background: var(--spa-gold);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-primary-custom:hover { background: #b8893a; color: #fff; transform: translateY(-2px); }
+
+    /* Footer */
+    footer {
+      background: #0f1f15;
+      color: rgba(255,255,255,0.7);
+      padding: 40px 20px 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto 30px;
+    }
+    .footer-col h4 { color: #fff; font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; }
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 3px 0;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--spa-gold-light); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .page-hero h1 { font-size: 2rem; }
+      .stats-row { gap: 30px; }
+      .stat-item .number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="landing.html" class="nav-brand">💆 Spa <span>Suite</span></a>
+  <div class="nav-links">
+    <a href="landing.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="landing.html#pricing">Pricing</a>
+    <a href="support.html">Support</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://wa.me/97439929558" class="nav-cta" target="_blank">Get Demo</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="page-hero">
+  <h1>About Spa Suite</h1>
+  <p>We built the management platform that spas, salons, and wellness centers in Qatar actually need.</p>
+</div>
+
+<!-- Story -->
+<div class="content-section">
+  <h2>Our Story</h2>
+  <div class="accent-line"></div>
+  <p>Spa Suite was born from a simple observation: the spa and salon industry in the Gulf was growing fast, but the technology supporting these businesses was stuck in the past. Owners were juggling five or more separate tools — a booking app here, a POS system there, spreadsheets for finances, paper records for staff — and still had no clear picture of their business.</p>
+  <p>We set out to build the platform that we wished existed: one that handles everything from the moment a walk-in customer enters the door to the end-of-day financial close, with real-time visibility at every step.</p>
+  <p>Today, Spa Suite powers spas, salons, and wellness centers across Qatar, helping owners take control of their operations, delight their customers, and grow their businesses with confidence.</p>
+</div>
+
+<!-- Values -->
+<div class="content-section" style="background: #fafafa; max-width: 100%; padding: 80px 20px;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2>What We Believe</h2>
+    <div class="accent-line"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="icon">🎯</div>
+        <h3>Simplicity First</h3>
+        <p>Powerful software doesn't have to be complicated. We design every feature to be intuitive, so your team can focus on customers, not technology.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🤝</div>
+        <h3>Built With You</h3>
+        <p>We build Spa Suite alongside real spa owners. Every feature starts with a real problem, not a theoretical one. Your feedback shapes our roadmap.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🔒</div>
+        <h3>Your Data, Your Control</h3>
+        <p>Your business data stays yours. Secure backups, role-based access, and full audit trails. No subscriptions, no vendor lock-in.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🌍</div>
+        <h3>Made for the Gulf</h3>
+        <p>Built in Qatar with deep understanding of the local market — from multi-currency support to Arabic-friendly interfaces and Gulf business practices.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Timeline -->
+<div class="content-section">
+  <h2>Our Journey</h2>
+  <div class="accent-line"></div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">2024</div>
+      <h3>The Idea</h3>
+      <p>Spa owners in Doha shared the same frustrations: too many tools, too little visibility. We started building the solution.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2025</div>
+      <h3>First Version</h3>
+      <p>Spa Suite v1 launched with POS, appointments, staff management, and financial reports. Immediate adoption by local spas.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2025</div>
+      <h3>Loyalty & Wallet</h3>
+      <p>Digital loyalty cards with Apple Wallet & Google Wallet integration. Customers love it, owners see repeat visits increase.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2026</div>
+      <h3>Multi-Branch</h3>
+      <p>Full multi-branch support launched. Spa chains can now manage all locations from one unified platform.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2026</div>
+      <h3>Expanding</h3>
+      <p>Growing across the Gulf region. New features, new partners, same mission: make spa management effortless.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="number">10+</div>
+    <div class="label">Core Modules</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">60+</div>
+    <div class="label">Services Managed</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">24/7</div>
+    <div class="label">System Uptime</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">∞</div>
+    <div class="label">Branches Supported</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to Try Spa Suite?</h2>
+  <p>Get a free 15-minute demo and see how it works for your business.</p>
+  <a href="https://wa.me/97439929558" class="btn-primary-custom" target="_blank">
+    <i class="bi bi-whatsapp"></i> Chat on WhatsApp
+  </a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Spa Suite</h4>
+      <p style="font-size:0.85rem; line-height:1.6;">The all-in-one spa and salon management platform. Built in Qatar for businesses worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Features</h4>
+      <a href="landing.html#features">POS & Invoicing</a>
+      <a href="landing.html#features">Appointments</a>
+      <a href="landing.html#features">Customer CRM</a>
+      <a href="landing.html#features">Staff Management</a>
+      <a href="landing.html#features">Loyalty Cards</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="landing.html#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Get in Touch</h4>
+      <a href="https://wa.me/97439929558" target="_blank"><i class="bi bi-whatsapp"></i> +974 3992 9558</a>
+      <a href="mailto:rabbilslmqtr@gmail.com"><i class="bi bi-envelope"></i> rabbilslmqtr@gmail.com</a>
+      <a href="#"><i class="bi bi-geo-alt"></i> Doha, Qatar</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Spa Suite. All rights reserved. 🇶🇦 Made in Qatar
+  </div>
+</footer>
+
+</body>
+</html>

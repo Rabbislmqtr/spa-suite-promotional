@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spa Suite — WhatsApp Story Templates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #4f7b57;
+      --green-dark: #274b35;
+      --green-deep: #2f5f3d;
+      --gold: #c79a45;
+      --gold-light: #e4bb67;
+      --light: #f0f5f1;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #111; padding: 40px; color: #fff; }
+    h1 { text-align: center; margin-bottom: 10px; }
+    .subtitle { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 40px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+    .story-wrapper { text-align: center; }
+    .story-wrapper p { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 12px; }
+
+    /* WhatsApp Stories are 1080x1920 (9:16) */
+    .story {
+      width: 270px;
+      height: 480px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 32px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Story 1: Teaser */
+    .s1 {
+      background: linear-gradient(180deg, var(--green-dark) 0%, #0a1a10 100%);
+    }
+    .s1 .emoji { font-size: 2.5rem; margin-bottom: 16px; }
+    .s1 h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; line-height: 1.2; }
+    .s1 p { font-size: 0.7rem; opacity: 0.7; line-height: 1.6; }
+    .s1 .swipe {
+      position: absolute;
+      bottom: 24px;
+      font-size: 0.65rem;
+      color: var(--gold);
+      font-weight: 600;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Story 2: Feature List */
+    .s2 {
+      background: #fff;
+      color: var(--green-dark);
+      justify-content: flex-start;
+      padding-top: 40px;
+    }
+    .s2 .header { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--gold); margin-bottom: 20px; }
+    .s2 h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; }
+    .s2 .features {
+      list-style: none;
+      text-align: left;
+      width: 100%;
+    }
+    .s2 .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+    }
+    .s2 .features li .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .s2 .cta-bottom {
+      margin-top: auto;
+      background: var(--green);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    /* Story 3: Before/After */
+    .s3 {
+      background: linear-gradient(180deg, #1a1a2e 0%, var(--green-dark) 100%);
+    }
+    .s3 .before-after { width: 100%; }
+    .s3 .section-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .s3 .before { color: #ef4444; margin-bottom: 16px; }
+    .s3 .after { color: var(--gold-light); }
+    .s3 .items {
+      list-style: none;
+      text-align: left;
+      font-size: 0.65rem;
+      line-height: 1.8;
+    }
+    .s3 .items.before-list li::before { content: '❌ '; }
+    .s3 .items.after-list li::before { content: '✅ '; }
+    .s3 .divider-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 16px 0;
+    }
+
+    /* Story 4: CTA / Swipe Up */
+    .s4 {
+      background: linear-gradient(135deg, var(--gold) 0%, #b8893a 100%);
+      color: #fff;
+    }
+    .s4 .big-emoji { font-size: 3.5rem; margin-bottom: 20px; }
+    .s4 h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; line-height: 1.2; }
+    .s4 p { font-size: 0.75rem; opacity: 0.9; line-height: 1.5; max-width: 200px; margin-bottom: 24px; }
+    .s4 .whatsapp-btn {
+      background: #25d366;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .s4 .brand {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.55rem;
+      opacity: 0.6;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Story 5: QR Code placeholder */
+    .s5 {
+      background: var(--green);
+      color: #fff;
+    }
+    .s5 .top-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.7;
+      margin-bottom: 16px;
+    }
+    .s5 h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .s5 p { font-size: 0.7rem; opacity: 0.8; margin-bottom: 20px; }
+    .s5 .qr-placeholder {
+      width: 140px;
+      height: 140px;
+      background: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-dark);
+      font-size: 0.6rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .s5 .instructions {
+      font-size: 0.6rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<h1>WhatsApp Status / Story Templates</h1>
+<p class="subtitle">9:16 format (1080×1920). Screenshot or save, then post as WhatsApp Status.</p>
+
+<div class="grid">
+
+  <!-- Story 1: Teaser -->
+  <div class="story-wrapper">
+    <div class="story s1">
+      <div class="emoji">🤔</div>
+      <h2>Still Managing Your Spa With Paper & Spreadsheets?</h2>
+      <p>There's a better way. And it's built right here in Qatar.</p>
+      <div class="swipe">↑ Tap to learn more</div>
+    </div>
+    <p>Story 1: Teaser / Hook</p>
+  </div>
+
+  <!-- Story 2: Feature List -->
+  <div class="story-wrapper">
+    <div class="story s2">
+      <div class="header">Spa Suite</div>
+      <h2>Everything Your Spa Needs</h2>
+      <ul class="features">
+        <li><span class="icon">💳</span> Fast POS with split payments</li>
+        <li><span class="icon">📅</span> Smart appointment calendar</li>
+        <li><span class="icon">👥</span> Staff tracking & commissions</li>
+        <li><span class="icon">⭐</span> Digital loyalty cards</li>
+        <li><span class="icon">📊</span> Real-time financial reports</li>
+        <li><span class="icon">🏢</span> Multi-branch support</li>
+      </ul>
+      <div class="cta-bottom">💬 DM "DEMO" for a free walkthrough</div>
+    </div>
+    <p>Story 2: Feature List</p>
+  </div>
+
+  <!-- Story 3: Before/After -->
+  <div class="story-wrapper">
+    <div class="story s3">
+      <div class="before-after">
+        <div class="section-label before">BEFORE SPA SUITE ❌</div>
+        <ul class="items before-list">
+          <li>Paper bookings lost daily</li>
+          <li>Can't track cash properly</li>
+          <li>Manual staff commission math</li>
+          <li>No customer loyalty system</li>
+          <li>Guessing your finances</li>
+        </ul>
+        <div class="divider-line"></div>
+        <div class="section-label after">WITH SPA SUITE ✅</div>
+        <ul class="items after-list">
+          <li>Real-time booking calendar</li>
+          <li>Auto cash register tracking</li>
+          <li>Commission calculated instantly</li>
+          <li>Apple & Google Wallet loyalty</li>
+          <li>Daily reports at your fingertips</li>
+        </ul>
+      </div>
+    </div>
+    <p>Story 3: Before vs After</p>
+  </div>
+
+  <!-- Story 4: CTA -->
+  <div class="story-wrapper">
+    <div class="story s4">
+      <div class="big-emoji">🚀</div>
+      <h2>Free 15-Minute Demo</h2>
+      <p>See how Spa Suite can save you 3+ hours every day.</p>
+      <div class="whatsapp-btn">💬 WhatsApp Us Now</div>
+      <div class="brand">SPA SUITE</div>
+    </div>
+    <p>Story 4: CTA / WhatsApp</p>
+  </div>
+
+  <!-- Story 5: QR Code -->
+  <div class="story-wrapper">
+    <div class="story s5">
+      <div class="top-label">Scan to Learn More</div>
+      <h2>Try Spa Suite</h2>
+      <p>The complete spa management platform</p>
+      <div class="qr-placeholder">[ YOUR QR CODE ]</div>
+      <div class="instructions">
+        Point your camera here<br>
+        to book a free demo
+      </div>
+    </div>
+    <p>Story 5: QR Code Placeholder</p>
+  </div>
+
+</div>
+
+</body>
+</html>

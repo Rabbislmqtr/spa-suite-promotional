@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سبا سويت — منشورات التواصل الاجتماعي (عربي)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #4f7b57;
+      --green-dark: #274b35;
+      --green-deep: #2f5f3d;
+      --gold: #c79a45;
+      --gold-light: #e4bb67;
+      --light: #f0f5f1;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cairo', 'Tajawal', sans-serif; background: #1a1a2e; padding: 40px; color: #fff; direction: ltr; }
+    h1 { text-align: center; font-size: 2rem; margin-bottom: 10px; direction: rtl; }
+    .subtitle { text-align: center; color: rgba(255,255,255,0.6); margin-bottom: 40px; font-size: 0.9rem; direction: rtl; }
+    .grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; direction: ltr; }
+    .post-wrapper { text-align: center; direction: rtl; }
+    .post-wrapper p { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 12px; direction: rtl; }
+
+    .post {
+      width: 400px;
+      height: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      direction: rtl;
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+    }
+
+    /* Post 1: إطلاق المنتج */
+    .post-1 {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 50%, var(--green-deep) 100%);
+      color: #fff;
+    }
+    .post-1 .badge {
+      background: rgba(199, 154, 69, 0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .post-1 h2 { font-size: 1.5rem; font-weight: 900; line-height: 1.4; margin-bottom: 12px; }
+    .post-1 h2 span { color: var(--gold-light); }
+    .post-1 p { font-size: 0.8rem; opacity: 0.85; line-height: 1.6; max-width: 300px; }
+
+    /* Post 2: ميزة البيع */
+    .post-2 {
+      background: #fff;
+      color: var(--green-dark);
+      align-items: flex-end;
+      text-align: right;
+    }
+    .post-2 .tag {
+      background: var(--light);
+      color: var(--green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .post-2 .icon-big { font-size: 2.5rem; margin-bottom: 16px; }
+    .post-2 h2 { font-size: 1.3rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+    .post-2 p { font-size: 0.75rem; color: #666; line-height: 1.7; }
+    .post-2 .cta-line {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* Post 3: المشكلة والحل */
+    .post-3 {
+      background: var(--gold);
+      color: #fff;
+    }
+    .post-3 .top { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.8; margin-bottom: 16px; }
+    .post-3 h2 { font-size: 1.2rem; font-weight: 800; line-height: 1.4; margin-bottom: 12px; }
+    .post-3 .divider { width: 40px; height: 3px; background: rgba(255,255,255,0.5); margin: 12px auto; }
+    .post-3 .solutions { list-style: none; font-size: 0.75rem; }
+    .post-3 .solutions li { padding: 5px 0; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .post-3 .solutions li::before { content: '✓'; font-weight: 900; font-size: 0.9rem; }
+
+    /* Post 4: أرقام وإحصائيات */
+    .post-4 {
+      background: linear-gradient(180deg, #0f1f15 0%, var(--green-dark) 100%);
+      color: #fff;
+    }
+    .post-4 .logo-text {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .post-4 .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .post-4 .stat { text-align: center; }
+    .post-4 .stat .num { font-size: 1.8rem; font-weight: 900; color: var(--gold-light); }
+    .post-4 .stat .label { font-size: 0.6rem; color: rgba(255,255,255,0.6); letter-spacing: 1px; margin-top: 4px; }
+
+    /* Post 5: الفروع المتعددة */
+    .post-5 {
+      background: #fff;
+      color: var(--green-dark);
+    }
+    .post-5 .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      direction: rtl;
+    }
+    .post-5 .header .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .post-5 .header span { font-size: 0.6rem; letter-spacing: 2px; font-weight: 700; color: var(--green); }
+    .post-5 h2 { font-size: 1.2rem; font-weight: 800; line-height: 1.3; margin-bottom: 16px; text-align: right; }
+    .post-5 .branches {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .post-5 .branch-box {
+      flex: 1;
+      background: var(--light);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .post-5 .branch-box .name { font-size: 0.6rem; font-weight: 700; color: var(--green-dark); }
+    .post-5 .branch-box .revenue { font-size: 0.85rem; font-weight: 900; color: var(--green); margin-top: 4px; }
+    .post-5 .cta-line {
+      font-size: 0.65rem;
+      color: var(--gold);
+      font-weight: 700;
+      text-align: right;
+      margin-top: auto;
+    }
+
+    /* Post 6: المحفظة الرقمية */
+    .post-6 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f1f15 100%);
+      color: #fff;
+    }
+    .post-6 .wallet-icon { font-size: 3rem; margin-bottom: 16px; }
+    .post-6 h2 { font-size: 1.3rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+    .post-6 p { font-size: 0.75rem; opacity: 0.8; line-height: 1.6; max-width: 280px; }
+    .post-6 .wallet-badges {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .post-6 .wallet-badge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.6rem;
+      font-weight: 600;
+    }
+
+    /* Post 7: شهادة عميل */
+    .post-7 {
+      background: var(--green);
+      color: #fff;
+    }
+    .post-7 .quote-mark {
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--gold-light);
+      font-family: Georgia, serif;
+      margin-bottom: -10px;
+    }
+    .post-7 blockquote {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      max-width: 300px;
+      margin-bottom: 16px;
+    }
+    .post-7 .author { font-weight: 700; font-size: 0.75rem; }
+    .post-7 .role { font-size: 0.65rem; opacity: 0.7; }
+
+    /* Post 8: دعوة للعمل */
+    .post-8 {
+      background: linear-gradient(135deg, var(--gold) 0%, #b8893a 100%);
+      color: #fff;
+    }
+    .post-8 .emoji { font-size: 3rem; margin-bottom: 16px; }
+    .post-8 h2 { font-size: 1.5rem; font-weight: 900; line-height: 1.3; margin-bottom: 12px; }
+    .post-8 p { font-size: 0.8rem; opacity: 0.9; max-width: 280px; margin-bottom: 20px; }
+    .post-8 .cta-button {
+      background: var(--green-dark);
+      color: #fff;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* Post 9: إدارة الموظفين */
+    .post-9 {
+      background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+      color: #fff;
+    }
+    .post-9 .top-label { font-size: 0.55rem; letter-spacing: 2px; font-weight: 700; opacity: 0.7; margin-bottom: 16px; }
+    .post-9 h2 { font-size: 1.3rem; font-weight: 800; line-height: 1.3; margin-bottom: 16px; }
+    .post-9 .features-list { list-style: none; text-align: right; width: 100%; }
+    .post-9 .features-list li {
+      padding: 6px 0;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .post-9 .features-list li .check { color: var(--gold-light); font-weight: 900; }
+
+    /* Post 10: العروض */
+    .post-10 {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #0a1a10 100%);
+      color: #fff;
+      border: 3px solid var(--gold);
+    }
+    .post-10 .offer-badge {
+      background: var(--gold);
+      color: #fff;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .post-10 h2 { font-size: 1.4rem; font-weight: 900; line-height: 1.3; margin-bottom: 10px; }
+    .post-10 p { font-size: 0.75rem; opacity: 0.8; line-height: 1.6; margin-bottom: 20px; }
+    .post-10 .cta-button {
+      background: var(--gold);
+      color: #fff;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>سبا سويت — منشورات التواصل الاجتماعي (عربي)</h1>
+<p class="subtitle">انقر بزر الماوس الأيمن على أي منشور → "حفظ كصورة" أو خذ لقطة شاشة. الحجم: 1080×1080 لإنستغرام.</p>
+
+<div class="grid">
+
+  <!-- منشور 1: إطلاق المنتج -->
+  <div class="post-wrapper">
+    <div class="post post-1">
+      <div class="badge">🏆 Trusted by Spas in Qatar</div>
+      <h2>أدِر صالونك<br>كأفضل <span>ال Businesses</span><br>في قطر</h2>
+      <p>سبا سويت — المنصة الشاملة لإدارة الصالونات وlists centers في قطر</p>
+    </div>
+    <p>منشور 1: إطلاق المنتج</p>
+  </div>
+
+  <!-- منشور 2: ميزة البيع -->
+  <div class="post-wrapper">
+    <div class="post post-2">
+      <div class="tag">نقطة البيع</div>
+      <div class="icon-big">💳</div>
+      <h2>نقطة بيع سريعة كالبرق</h2>
+      <p>دفع مشترك بين الكاش والكرت والائتمان. فواتير احترافية. استرداد جزئي. مصممة للسرعة.</p>
+      <div class="cta-line"> spsuite.qa ← <i>اعرف المزيد</i></div>
+    </div>
+    <p>منشور 2: ميزة — نقطة البيع</p>
+  </div>
+
+  <!-- منشور 3: المشكلة والحل -->
+  <div class="post-wrapper">
+    <div class="post post-3">
+      <div class="top">وقف الإدارة. ابدأ النمو.</div>
+      <h2>منصة واحدة تحل محل 5 أدوات</h2>
+      <div class="divider"></div>
+      <ul class="solutions">
+        <li>نقطة البيع والفواتير</li>
+        <li>جدولة المواعيد</li>
+        <li>إدارة الموظفين</li>
+        <li>ولاء العملاء</li>
+        <li>التقارير المالية</li>
+      </ul>
+    </div>
+    <p>منشور 3: المشكلة → الحل</p>
+  </div>
+
+  <!-- منشور 4: أرقام -->
+  <div class="post-wrapper">
+    <div class="post post-4">
+      <div class="logo-text">SPA SUITE</div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">+10</div>
+          <div class="label">وحدة أساسية</div>
+        </div>
+        <div class="stat">
+          <div class="num">360°</div>
+          <div class="label">رؤية شاملة</div>
+        </div>
+        <div class="stat">
+          <div class="num">24/7</div>
+          <div class="label">وصول من أي مكان</div>
+        </div>
+        <div class="stat">
+          <div class="num">∞</div>
+          <div class="label">فروع</div>
+        </div>
+      </div>
+    </div>
+    <p>منشور 4: إحصائيات</p>
+  </div>
+
+  <!-- منشور 5: الفروع المتعددة -->
+  <div class="post-wrapper">
+    <div class="post post-5">
+      <div class="header">
+        <span>فروع متعددة</span>
+        <div class="dot"></div>
+      </div>
+      <h2>أدِر عدة فروع كأنها واحدة</h2>
+      <div class="branches">
+        <div class="branch-box">
+          <div class="name">الwest bay</div>
+          <div class="revenue">12,500 ر.ق</div>
+        </div>
+        <div class="branch-box">
+          <div class="name">الرئيسي</div>
+          <div class="revenue">9,800 ر.ق</div>
+        </div>
+        <div class="branch-box">
+          <div class="name">لوسيل</div>
+          <div class="revenue">11,200 ر.ق</div>
+        </div>
+      </div>
+      <div class="cta-line">لوحة تحكم واحدة. قاعدة عملاء موحدة. سيطرة كاملة.</div>
+    </div>
+    <p>منشور 5: الفروع المتعددة</p>
+  </div>
+
+  <!-- منشور 6: المحفظة الرقمية -->
+  <div class="post-wrapper">
+    <div class="post post-6">
+      <div class="wallet-icon">📱</div>
+      <h2>علامتك التجارية في محفظتهم</h2>
+      <p>بطاقات ولاء رقمية مع Apple Wallet و Google Wallet. إشعارات مكافآت تلقائية. بدون بطاقات بلاستيكية.</p>
+      <div class="wallet-badges">
+        <div class="wallet-badge"> Apple Wallet</div>
+        <div class="wallet-badge"> Google Wallet</div>
+      </div>
+    </div>
+    <p>منشور 6: المحفظة الرقمية</p>
+  </div>
+
+  <!-- منشور 7: شهادة -->
+  <div class="post-wrapper">
+    <div class="post post-7">
+      <div class="quote-mark">"</div>
+      <blockquote>قبل سبا سويت، كنت أدير 3 فروع بقلم وورقة. الآن كل شيء في مكان واحد — المبيعات، الموظفين، العملاء، وحتى رصيد الصندوق.</blockquote>
+      <div class="author">— صاحب صالون، الدوحة 🇶🇦</div>
+      <div class="role">سلسلة صالونات متعددة الفروع</div>
+    </div>
+    <p>منشور 7: شهادة عميل</p>
+  </div>
+
+  <!-- منشور 8: دعوة للعمل -->
+  <div class="post-wrapper">
+    <div class="post post-8">
+      <div class="emoji">🚀</div>
+      <h2>عرض تجريبي مجاني</h2>
+      <p>اكتشف كيف يمكن لسبا سويت أن يغير عملك في 15 دقيقة.</p>
+      <div class="cta-button">💬 راسلنا واتساب</div>
+    </div>
+    <p>منشور 8: دعوة للعمل</p>
+  </div>
+
+  <!-- منشور 9: إدارة الموظفين -->
+  <div class="post-wrapper">
+    <div class="post post-9">
+      <div class="top-label">إدارة الموظفين</div>
+      <h2>موظفك أهلك. أدرهم بذكاء.</h2>
+      <ul class="features-list">
+        <li>تتبع حضور وانصراف <span class="check">✓</span></li>
+        <li>حساب العمولة تلقائياً <span class="check">✓</span></li>
+        <li>جدولة الورديات <span class="check">✓</span></li>
+        <li>إدارة العمل بدوام جزئي <span class="check">✓</span></li>
+        <li>تقارير أداء فردية <span class="check">✓</span></li>
+      </ul>
+    </div>
+    <p>منشور 9: إدارة الموظفين</p>
+  </div>
+
+  <!-- منشور 10: عرض خاص -->
+  <div class="post-wrapper">
+    <div class="post post-10">
+      <div class="offer-badge">⭐ عرض محدود</div>
+      <h2>جرّب سبا سويت مجاناً لمدة 30 يوماً</h2>
+      <p>لا حاجة لبطاقة ائتمان. لا عقود. فقط سجّل وابدأ.</p>
+      <div class="cta-button">📱 سجّل الآن</div>
+    </div>
+    <p>منشور 10: عرض خاص</p>
+  </div>
+
+</div>
+
+</body>
+</html>

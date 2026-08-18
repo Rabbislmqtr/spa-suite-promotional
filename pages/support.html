@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Spa Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --spa-green: #4f7b57;
+      --spa-green-dark: #274b35;
+      --spa-green-deep: #2f5f3d;
+      --spa-gold: #c79a45;
+      --spa-gold-light: #e4bb67;
+      --spa-light: #f0f5f1;
+      --text-dark: #1a1a2e;
+      --text-muted: #6b7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); }
+
+    /* Nav */
+    .nav {
+      background: var(--spa-green-dark);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-brand span { color: var(--spa-gold-light); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta {
+      background: var(--spa-gold);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+    .nav-cta:hover { background: #b8893a; }
+
+    /* Hero */
+    .page-hero {
+      background: linear-gradient(135deg, var(--spa-green-dark) 0%, var(--spa-green) 100%);
+      color: #fff;
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 16px; }
+    .page-hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    /* Content */
+    .content-section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+    .content-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: var(--spa-green-dark); }
+    .content-section .accent-line { width: 60px; height: 4px; background: var(--spa-gold); border-radius: 2px; margin-bottom: 32px; }
+
+    /* Support Options */
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .support-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid #f0f0f0;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .support-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    .support-card .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 0 auto 16px;
+    }
+    .support-card .icon.green { background: linear-gradient(135deg, var(--spa-green), var(--spa-green-deep)); }
+    .support-card .icon.gold { background: linear-gradient(135deg, var(--spa-gold), #e4bb67); }
+    .support-card .icon.teal { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+    .support-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .support-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+    .support-card a {
+      display: inline-block;
+      background: var(--spa-green);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .support-card a:hover { background: var(--spa-green-dark); }
+
+    /* FAQ */
+    .faq-section { background: #fafafa; padding: 80px 20px; }
+    .faq-section h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 12px; color: var(--spa-green-dark); }
+    .faq-section .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; }
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      border: 1px solid #f0f0f0;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .faq-question:hover { background: #fafafa; }
+    .faq-question i { transition: transform 0.3s; color: var(--spa-green); }
+    .faq-answer {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s, padding 0.3s;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+    .faq-item.open .faq-answer { max-height: 500px; padding: 0 24px 20px; }
+
+    /* Steps */
+    .steps-section { padding: 80px 20px; text-align: center; }
+    .steps-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; color: var(--spa-green-dark); }
+    .steps-section .subtitle { color: var(--text-muted); margin-bottom: 40px; }
+    .steps-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .step-card {
+      text-align: center;
+      max-width: 240px;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--spa-gold);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--spa-green) 0%, var(--spa-green-dark) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .cta-section h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; opacity: 0.9; max-width: 500px; margin: 0 auto 28px; }
+    .btn-primary-custom {
+      display: inline-block;
+      background: var(--spa-gold);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 0 8px;
+    }
+    .btn-primary-custom:hover { background: #b8893a; color: #fff; transform: translateY(-2px); }
+    .btn-outline-custom {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 0 8px;
+    }
+    .btn-outline-custom:hover { border-color: #fff; background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* Footer */
+    footer {
+      background: #0f1f15;
+      color: rgba(255,255,255,0.7);
+      padding: 40px 20px 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto 30px;
+    }
+    .footer-col h4 { color: #fff; font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; }
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 3px 0;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--spa-gold-light); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .page-hero h1 { font-size: 2rem; }
+      .steps-row { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="landing.html" class="nav-brand">💆 Spa <span>Suite</span></a>
+  <div class="nav-links">
+    <a href="landing.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="landing.html#pricing">Pricing</a>
+    <a href="support.html" class="active">Support</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://wa.me/97439929558" class="nav-cta" target="_blank">Get Demo</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="page-hero">
+  <h1>How Can We Help?</h1>
+  <p>Get the support you need to make the most of Spa Suite. We're here to help every step of the way.</p>
+</div>
+
+<!-- Support Options -->
+<div class="content-section">
+  <h2>Get Support</h2>
+  <div class="accent-line"></div>
+  <div class="support-grid">
+    <div class="support-card">
+      <div class="icon green"><i class="bi bi-whatsapp"></i></div>
+      <h3>WhatsApp Support</h3>
+      <p>Chat with us directly on WhatsApp. Fast response, usually within minutes during business hours.</p>
+      <a href="https://wa.me/97439929558?text=Hi%20Spa%20Suite%20Support%2C%20I%20need%20help%20with..." target="_blank">Chat Now</a>
+    </div>
+    <div class="support-card">
+      <div class="icon gold"><i class="bi bi-envelope"></i></div>
+      <h3>Email Support</h3>
+      <p>For detailed questions, send us an email. We respond within 24 hours with thorough answers.</p>
+      <a href="mailto:rabbilslmqtr@gmail.com?subject=Spa%20Suite%20Support">Send Email</a>
+    </div>
+    <div class="support-card">
+      <div class="icon teal"><i class="bi bi-phone"></i></div>
+      <h3>Phone Support</h3>
+      <p>Need to talk to someone? Call us directly for immediate assistance with urgent issues.</p>
+      <a href="tel:+97439929558">Call +974 3992 9558</a>
+    </div>
+  </div>
+
+  <!-- How to Get Started -->
+  <div class="steps-section">
+    <h2>Getting Started is Easy</h2>
+    <p class="subtitle">Follow these steps to set up your spa on Spa Suite</p>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Contact Us</h3>
+        <p>Send us a WhatsApp message or email to schedule your free demo and setup consultation.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>We Set It Up</h3>
+        <p>Our team helps you configure your services, rooms, staff, and branch details. Takes about 15 minutes.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Start Using It</h3>
+        <p>Your team logs in, clocks in, and starts serving customers. We provide training and ongoing support.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <p class="subtitle">Quick answers to common questions</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question">What devices does Spa Suite work on? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Spa Suite works on any device with a modern web browser — desktop computers, laptops, tablets, and smartphones. There's nothing to install. Just open your browser and log in. We recommend using Chrome or Safari for the best experience.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Do I need internet access to use it? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Yes, Spa Suite is a web-based application and requires an internet connection. However, it's very lightweight and works well even on slow connections. Your data is securely stored in the cloud, so you can access it from any device, anywhere.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Is there a free trial? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Yes! We offer a free demo where we walk you through the entire system. You can see exactly how it works for your specific business before making any commitment. Contact us on WhatsApp to schedule your demo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I have multiple staff members log in at the same time? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Absolutely. Spa Suite supports multiple simultaneous users with role-based access control. Your receptionist can use the POS, your manager can view reports, and your staff can clock in — all at the same time from different devices.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How does the multi-branch feature work? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">With multi-branch support, you can manage unlimited locations from one account. Each branch has its own cash register, staff, and room management, while sharing a unified customer database and loyalty program. Admins can switch between branches or view consolidated reports across all locations.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Is my data safe and secure? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Security is our top priority. All data is encrypted in transit and at rest. We perform automatic daily backups, and you can create manual backups anytime with one click. Role-based access ensures staff only see what they're authorized to see. Full audit trails track every important action.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Do you offer training for my team? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Yes, we provide hands-on training during setup. We'll walk your team through every feature they need — from using the POS to clocking in to viewing reports. Ongoing support is available via WhatsApp, email, or phone whenever you need it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I export my data? <i class="bi bi-chevron-down"></i></div>
+      <div class="faq-answer">Yes. You can export sales reports, customer lists, financial statements, and feedback data as spreadsheets or PDFs. You also have full database backup capabilities, so you always have complete access to your data.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Still Have Questions?</h2>
+  <p>We're happy to help. Reach out anytime and we'll get back to you quickly.</p>
+  <a href="https://wa.me/97439929558" class="btn-primary-custom" target="_blank">
+    <i class="bi bi-whatsapp"></i> WhatsApp Us
+  </a>
+  <a href="contact.html" class="btn-outline-custom">
+    <i class="bi bi-envelope"></i> Contact Page
+  </a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Spa Suite</h4>
+      <p style="font-size:0.85rem; line-height:1.6;">The all-in-one spa and salon management platform. Built in Qatar for businesses worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Features</h4>
+      <a href="landing.html#features">POS & Invoicing</a>
+      <a href="landing.html#features">Appointments</a>
+      <a href="landing.html#features">Customer CRM</a>
+      <a href="landing.html#features">Staff Management</a>
+      <a href="landing.html#features">Loyalty Cards</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="landing.html#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Get in Touch</h4>
+      <a href="https://wa.me/97439929558" target="_blank"><i class="bi bi-whatsapp"></i> +974 3992 9558</a>
+      <a href="mailto:rabbilslmqtr@gmail.com"><i class="bi bi-envelope"></i> rabbilslmqtr@gmail.com</a>
+      <a href="#"><i class="bi bi-geo-alt"></i> Doha, Qatar</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Spa Suite. All rights reserved. 🇶🇦 Made in Qatar
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    item.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
