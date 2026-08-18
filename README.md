@@ -20,8 +20,8 @@ spa-suite-promotional/
 ├── 📄 README.md                    ← You are here
 ├── 📄 .gitignore
 │
-├── 📂 pages/                       ← Website pages
-│   ├── landing.html                ← Main promotional landing page
+├── 📂 docs/                        ← Website pages (GitHub Pages root)
+│   ├── index.html                  ← Main promotional landing page
 │   ├── about.html                  ← About Us page
 │   ├── support.html                ← Support & FAQ page
 │   └── contact.html                ← Contact page with WhatsApp form
@@ -52,8 +52,8 @@ spa-suite-promotional/
 
 ### 1. Open in Browser
 ```bash
-# Open the landing page
-open pages/landing.html
+# Open the landing page (now index.html for GitHub Pages)
+open docs/index.html
 
 # Open social media post templates
 open images-english/social-media-posts.html
@@ -70,16 +70,13 @@ open ads/banner-ads.html
 
 ### 3. Deploy Landing Page
 ```bash
-# Option A: GitHub Pages
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/spa-suite-promotional.git
-git push -u origin main
-# Enable GitHub Pages in repo settings → Source: main branch
+# Already deployed to GitHub Pages!
+# Your site: https://rabbislmqtr.github.io/spa-suite-promotional/
 
-# Option B: Netlify (drag & drop)
-# Just drag the pages/ folder to app.netlify.com/drop
+# To update after changes:
+git add .
+git commit -m "Update promotional materials"
+git push
 ```
 
 ### 4. Generate AI Images
@@ -95,10 +92,10 @@ git push -u origin main
 ### Website Pages (4 pages)
 | Page | File | Description |
 |------|------|-------------|
-| Landing | `pages/landing.html` | Full promotional page with features, pricing, CTA |
-| About Us | `pages/about.html` | Company story, values, journey timeline |
-| Support | `pages/support.html` | FAQ, help options, getting started guide |
-| Contact | `pages/contact.html` | Contact form (auto-sends to WhatsApp) |
+| Landing | `docs/index.html` | Full promotional page with features, pricing, CTA |
+| About Us | `docs/about.html` | Company story, values, journey timeline |
+| Support | `docs/support.html` | FAQ, help options, getting started guide |
+| Contact | `docs/contact.html` | Contact form (auto-sends to WhatsApp) |
 
 ### Social Media Templates (18 posts)
 | Platform | English | Arabic |
