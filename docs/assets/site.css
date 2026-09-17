@@ -1,0 +1,1009 @@
+/* ==========================================================================
+   Spa Suite — marketing site
+   Direction: "The Day Close"
+
+   The vernacular is till paper and ledgers. Dotted leader lines and tabular
+   figures are the structural device, because the product's job is turning a
+   day's operations into accountable rows. Gold behaves as metallic ink: it
+   marks numerals, totals and focus, and never fills a large area.
+
+   Surfaces set their own --fg / --rule so components never need to know which
+   field they're sitting on. Section padding lives on .sec alone — no element
+   selector overrides it, so nothing cancels out.
+   ========================================================================== */
+
+/* --- tokens --------------------------------------------------------------- */
+
+:root {
+  /* palette */
+  --ink:            #0d1a14;   /* dominant dark field, green-black */
+  --ink-raised:     #16281f;   /* raised surface on ink */
+  --jade:           #4f7b57;   /* brand green */
+  --jade-deep:      #274b35;   /* brand dark green */
+  --brass:          #c79a45;   /* brand gold — on the ink field */
+  --brass-lt:       #e4bb67;   /* brand gold, light — on the ink field */
+  --brass-ink:      #8a6520;   /* the same metal, darkened for light fields */
+  --limestone:      #f0f5f1;   /* brand light green, paper field */
+  --receipt:        #fbfcfa;   /* receipt stock */
+
+  /* surface defaults: limestone.
+     --brass-text is the brass that is legible on *this* surface. #c79a45 is
+     6.9:1 on ink but only 2.3:1 on limestone, so light fields take the
+     darkened bronze instead and the metal still reads as one material. */
+  --bg:             var(--limestone);
+  --fg:             #16281f;
+  --fg-muted:       #55635b;
+  --brass-text:     var(--brass-ink);
+  --rule:           rgba(22, 40, 31, .16);
+  --rule-strong:    rgba(22, 40, 31, .34);
+
+  /* type */
+  --display: 'Bodoni Moda', 'Times New Roman', serif;
+  --body:    'Karla', system-ui, -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+
+  /* measure */
+  --page:   1180px;
+  --rail:   152px;
+  --gutter: 56px;
+}
+
+/* --- reset -------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--fg);
+  background: var(--limestone);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul { list-style: none; }
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--brass-text);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 200;
+  background: var(--brass);
+  color: var(--ink);
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: .78rem;
+  text-decoration: none;
+  transition: top .15s;
+}
+.skip:focus { top: 12px; }
+
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- type roles --------------------------------------------------------- */
+
+.d-xl, .d-l, .d-m {
+  font-family: var(--display);
+  font-weight: 500;
+  font-variant-numeric: normal;
+  letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.d-xl { font-size: clamp(2.55rem, 5.6vw, 4.7rem); line-height: .98; }
+.d-l  { font-size: clamp(1.85rem, 3.3vw, 2.8rem);  line-height: 1.08; }
+.d-m  { font-size: clamp(1.3rem, 1.9vw, 1.6rem);   line-height: 1.2; font-weight: 400; }
+
+.lede {
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  line-height: 1.62;
+  color: var(--fg-muted);
+  max-width: 46ch;
+}
+
+/* mono utility: eyebrows, labels, figures */
+.eyebrow, .mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.eyebrow {
+  font-size: .68rem;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+.mono { font-size: .82rem; }
+
+.brass { color: var(--brass-text); }
+
+/* --- surfaces ----------------------------------------------------------- */
+
+.sec {
+  padding: clamp(64px, 8vw, 118px) 24px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.sec--ink {
+  --bg:          var(--ink);
+  --fg:          #e8ede9;
+  --fg-muted:    rgba(232, 237, 233, .62);
+  --brass-text:  var(--brass);
+  --rule:        rgba(232, 237, 233, .14);
+  --rule-strong: rgba(232, 237, 233, .3);
+}
+.sec--limestone { --bg: var(--limestone); }
+.sec--paper     { --bg: #f7f9f6; }
+.sec--tight     { padding-block: clamp(44px, 5vw, 70px); }
+
+.wrap { max-width: var(--page); margin-inline: auto; }
+.wrap--narrow { max-width: 780px; }
+
+/* --- ledger grid -------------------------------------------------------- */
+/* narrow rail carries section metadata, like an account-code column */
+
+.ledger {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: var(--gutter);
+}
+.ledger__rail {
+  border-top: 1px solid var(--rule-strong);
+  padding-top: 12px;
+}
+.ledger__rail .count {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  color: var(--brass-text);
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.ledger__body { border-top: 1px solid var(--rule-strong); padding-top: 12px; }
+.ledger__body > .d-l { margin-bottom: 14px; }
+.ledger__body > .lede { margin-bottom: 40px; }
+
+/* --- interior page head ------------------------------------------------- */
+/* Same ledger grid as every other section, so the interior pages open in the
+   system rather than in a new layout. The homepage receipt stays the one
+   place the design raises its voice. */
+
+.phead { padding-block: clamp(52px, 6vw, 92px) clamp(48px, 5.5vw, 76px); }
+.phead .ledger__body > .d-xl { margin-bottom: 20px; max-width: 22ch; }
+.phead .ledger__body > .lede { margin-bottom: 0; max-width: 52ch; }
+.phead .d-xl { font-size: clamp(2.3rem, 4.4vw, 3.7rem); }
+
+/* --- dotted leader row -------------------------------------------------- */
+
+.led {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+}
+.led__dots {
+  flex: 1 1 auto;
+  min-width: 18px;
+  margin: 0 10px;
+  border-bottom: 1px dotted var(--rule-strong);
+  transform: translateY(-.28em);
+}
+.led__val {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- buttons ------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border-radius: 2px;
+  /* transparent by default so a filled button is exactly as tall as an outlined
+     one standing next to it */
+  border: 1px solid transparent;
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .18s, color .18s, border-color .18s;
+}
+.btn svg { width: 15px; height: 15px; flex: none; }
+
+.btn--brass { background: var(--brass); color: var(--ink); font-weight: 500; }
+.btn--brass:hover { background: var(--brass-lt); }
+
+/* A button edge is a UI boundary, so it needs 3:1 — more than a hairline rule.
+   Mixing from the surface-scoped --fg gives ~3.5:1 on ink, limestone, paper and
+   receipt stock alike. The --rule-strong line is the fallback for engines
+   without color-mix(). */
+.btn--line {
+  border: 1px solid var(--rule-strong);
+  border-color: color-mix(in srgb, var(--fg) 55%, transparent);
+  color: var(--fg);
+}
+.btn--line:hover { border-color: var(--brass-text); color: var(--brass-text); }
+
+.btn--sm { padding: 9px 16px; font-size: .72rem; }
+
+/* text link with brass rule on hover */
+.tlink {
+  position: relative;
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-decoration: none;
+  color: var(--fg);
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 2px;
+  transition: color .18s, border-color .18s;
+}
+/* The rule sits 2px under the text by design, so the link's own box is 19px.
+   This grows the hit area to 24px without moving the underline. */
+.tlink::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  height: 24px;
+}
+.tlink:hover { color: var(--brass-text); border-color: var(--brass-text); }
+
+/* --- header ------------------------------------------------------------- */
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: #e8ede9;
+  --brass-text: var(--brass);
+  border-bottom: 1px solid rgba(232, 237, 233, .13);
+}
+.head__in {
+  max-width: var(--page);
+  margin-inline: auto;
+  padding: 15px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: .84rem;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.brand::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--brass-text);
+  flex: none;
+}
+/* The brand is letterspaced mono at 22px tall. This lifts the hit area to 24px
+   at every width; the burger gets the same treatment at 44px on a phone. */
+.brand::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  height: 24px;
+}
+.head nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+/* :not(.btn) so the nav's muted link colour never overrides a button sitting
+   in the same list — .head nav a would otherwise outrank .btn--brass. */
+.head nav a:not(.btn) {
+  font-size: .88rem;
+  text-decoration: none;
+  color: rgba(232, 237, 233, .66);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color .18s, border-color .18s;
+}
+.head nav a:not(.btn):hover { color: #e8ede9; }
+.head nav a[aria-current='page'] { color: #e8ede9; border-bottom-color: var(--brass-text); }
+
+.burger { display: none; }
+
+/* --- hero --------------------------------------------------------------- */
+
+.hero {
+  background: var(--ink);
+  color: #e8ede9;
+  --fg: #e8ede9;
+  --fg-muted: rgba(232, 237, 233, .62);
+  --brass-text: var(--brass);
+  --rule: rgba(232, 237, 233, .14);
+  --rule-strong: rgba(232, 237, 233, .3);
+  padding: clamp(56px, 7vw, 104px) 24px clamp(64px, 7vw, 100px);
+  overflow: hidden;
+}
+.hero__grid {
+  max-width: var(--page);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  column-gap: clamp(40px, 6vw, 88px);
+  align-items: start;
+}
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.hero__eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  max-width: 180px;
+}
+.hero h1 { margin-bottom: 24px; }
+.hero h1 em {
+  font-style: italic;
+  color: var(--brass-lt);
+}
+.hero__lede { margin-bottom: 34px; max-width: 44ch; }
+.hero__cta { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+/* --- receipt (the signature) -------------------------------------------- */
+
+.receipt {
+  --tear: 9px;
+  background: var(--receipt);
+  color: #17241d;
+  --fg: #17241d;
+  --fg-muted: #5c6b62;
+  --brass-text: var(--brass-ink);   /* light stock, even inside the ink hero */
+  --rule-strong: rgba(23, 36, 29, .32);
+  padding: 26px 24px calc(22px + var(--tear));
+  font-family: var(--mono);
+  font-size: .78rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  /* torn from the roll along the bottom edge */
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      0 100% / var(--tear) var(--tear) repeat-x,
+    linear-gradient(#000, #000)
+      0 0 / 100% calc(100% - var(--tear)) no-repeat;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      0 100% / var(--tear) var(--tear) repeat-x,
+    linear-gradient(#000, #000)
+      0 0 / 100% calc(100% - var(--tear)) no-repeat;
+}
+.receipt__head { text-align: center; margin-bottom: 14px; }
+.receipt__head strong {
+  display: block;
+  font-size: .84rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.receipt__head span { color: var(--fg-muted); font-size: .7rem; letter-spacing: .08em; }
+
+.receipt hr {
+  border: 0;
+  border-top: 1px dashed rgba(23, 36, 29, .3);
+  margin: 12px 0;
+}
+.receipt hr.dbl {
+  border-top: 1px solid #17241d;
+  border-bottom: 1px solid #17241d;
+  height: 3px;
+  margin: 14px 0 10px;
+}
+.receipt .led { margin: 3px 0; }
+.receipt__total { display: flex; justify-content: space-between; align-items: baseline; }
+.receipt__total b {
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.receipt__total .amt {
+  font-family: var(--display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  font-variant-numeric: normal;
+}
+.receipt__foot {
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  margin-top: 14px;
+}
+
+/* the stamp: the one orchestrated moment on the page */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 16px auto 0;
+  padding: 6px 13px;
+  border: 1.5px solid var(--brass-text);
+  color: var(--brass-text);
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+.stamp svg { width: 13px; height: 13px; }
+.receipt__stampwrap { display: flex; justify-content: center; }
+
+/* --- fact strip --------------------------------------------------------- */
+
+.facts {
+  max-width: var(--page);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.facts div {
+  padding: 20px 22px;
+  border-left: 1px solid var(--rule);
+}
+.facts div:first-child { border-left: 0; }
+.facts dt {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 5px;
+}
+.facts dd { font-family: var(--mono); font-size: .95rem; }
+
+/* --- leak rows (the cost of the current setup) -------------------------- */
+
+.leaks { border-top: 1px solid var(--rule); }
+.leak {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 32px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.leak h3 { font-size: 1.02rem; font-weight: 500; }
+.leak p {
+  grid-column: 1;
+  color: var(--fg-muted);
+  font-size: .93rem;
+  max-width: 62ch;
+}
+.leak .cost {
+  grid-row: 1;
+  grid-column: 2;
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--brass-text);
+  white-space: nowrap;
+}
+
+/* --- module ledger ------------------------------------------------------ */
+
+.mods { border-top: 1px solid var(--rule); }
+.mod {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.mod__top { margin-bottom: 10px; }
+.mod__top .led__val { font-size: .74rem; color: var(--brass-text); letter-spacing: .08em; }
+.mod h3 {
+  font-family: var(--display);
+  font-size: 1.28rem;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+.mod p { color: var(--fg-muted); font-size: .95rem; max-width: 68ch; margin-bottom: 14px; }
+.mod ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 0;
+  font-family: var(--mono);
+  font-size: .71rem;
+  letter-spacing: .04em;
+  color: var(--fg-muted);
+}
+.mod li:not(:last-child)::after {
+  content: '·';
+  margin: 0 9px;
+  color: var(--brass-text);
+}
+
+/* --- day timeline ------------------------------------------------------- */
+/* clock times are the markers because the order is real information */
+
+.day { border-left: 1px solid var(--rule); }
+.day__row {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 4px 26px;
+  padding: 0 0 30px 26px;
+  position: relative;
+}
+.day__row::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: .62em;
+  width: 7px; height: 7px;
+  background: var(--brass-text);
+}
+.day__row:last-child { padding-bottom: 0; }
+/* Every column here is stated explicitly. The time is a <p>, so leaving it to
+   auto-placement let `.day__row p` claim it for column 2 and pushed the heading
+   into the 84px clock column. */
+.day__t {
+  grid-column: 1;
+  font-family: var(--mono);
+  font-size: .82rem;
+  color: var(--brass-text);
+  padding-top: .1em;
+}
+.day__row h3 { grid-column: 2; font-size: 1rem; font-weight: 500; }
+.day__row p:not(.day__t) {
+  grid-column: 2;
+  color: var(--fg-muted);
+  font-size: .92rem;
+  max-width: 60ch;
+}
+.day__row .tag {
+  grid-column: 2;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-top: 5px;
+}
+
+/* --- pricing ------------------------------------------------------------ */
+
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  align-items: stretch;
+}
+.plan { position: relative; display: flex; }
+.plan__flag {
+  position: absolute;
+  top: 0; right: 24px;
+  transform: translateY(-50%);
+  background: var(--brass);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  z-index: 1;
+}
+/* The double rule and the total are the punchline of a receipt, so they line up
+   across all three cards no matter how many rows a plan lists above them. */
+.plan .receipt { padding-top: 30px; display: flex; flex-direction: column; width: 100%; }
+.plan .receipt hr.dbl { margin-top: auto; }
+.plan .receipt ul { margin-bottom: 14px; }
+
+.plan h3 {
+  font-size: .74rem;
+  font-family: var(--mono);
+  font-weight: 500;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.plan__for {
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  margin-top: 4px;
+}
+.plan ul { margin: 4px 0; }
+.plan .btn { width: 100%; justify-content: center; margin-top: 16px; }
+.plan__note {
+  text-align: center;
+  font-size: .66rem;
+  color: var(--fg-muted);
+  letter-spacing: .05em;
+  margin-top: 9px;
+}
+
+/* --- FAQ ---------------------------------------------------------------- */
+
+.faq { border-top: 1px solid var(--rule); }
+.faq__item { border-bottom: 1px solid var(--rule); }
+.faq__q {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 28px;
+  width: 100%;
+  text-align: left;
+  padding: 19px 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.faq__q .sign {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--brass-text);
+  width: 1ch;
+  text-align: center;
+}
+.faq__q:hover { color: var(--brass-text); }
+.faq__a {
+  display: none;
+  padding: 0 0 22px;
+  color: var(--fg-muted);
+  font-size: .95rem;
+  max-width: 72ch;
+}
+.faq__item.open .faq__a { display: block; }
+
+/* --- contact channels + form ------------------------------------------- */
+
+.chans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.chan {
+  padding: 30px 26px;
+  border-left: 1px solid var(--rule);
+}
+.chan:first-child { border-left: 0; }
+.chan svg { width: 20px; height: 20px; color: var(--brass-text); margin-bottom: 14px; }
+.chan h3 { font-size: 1.02rem; font-weight: 500; margin-bottom: 6px; }
+.chan p { color: var(--fg-muted); font-size: .9rem; margin-bottom: 14px; }
+
+.form { display: grid; gap: 18px; }
+.form__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 7px;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-family: var(--body);
+  font-size: .96rem;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 8px 0;
+  border-radius: 0;
+  transition: border-color .18s;
+}
+.field select { cursor: pointer; }
+.field textarea { resize: vertical; min-height: 92px; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 0;
+  border-bottom-color: var(--brass-text);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--fg-muted); opacity: .7; }
+.field label .opt { text-transform: none; letter-spacing: .04em; opacity: .75; }
+.formnote { color: var(--fg-muted); font-size: .78rem; margin-top: 12px; max-width: 44ch; }
+
+/* form beside the contact details; the form gets the wider column */
+.contactgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  column-gap: clamp(36px, 5vw, 72px);
+  align-items: start;
+}
+.contactgrid .info {
+  padding-left: clamp(30px, 4vw, 56px);
+  border-left: 1px solid var(--rule);
+}
+
+.info { display: grid; gap: 24px; }
+.info__row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; }
+.info__row svg { width: 17px; height: 17px; color: var(--brass-text); margin-top: 4px; }
+.info__row h3 {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 3px;
+}
+.info__row p { font-size: 1rem; }
+.info__row small { color: var(--fg-muted); font-size: .82rem; }
+
+/* --- values / timeline (about) ----------------------------------------- */
+
+.vals { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule); }
+.val { padding: 26px 30px 26px 0; border-bottom: 1px solid var(--rule); }
+.val:nth-child(even) { padding-left: 30px; border-left: 1px solid var(--rule); }
+.val h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin-bottom: 8px; }
+.val p { color: var(--fg-muted); font-size: .93rem; }
+
+.prose p { margin-bottom: 18px; max-width: 68ch; color: var(--fg-muted); }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--fg); font-weight: 500; }
+
+/* --- CTA band ----------------------------------------------------------- */
+
+.band { text-align: center; }
+.band .d-l { margin-bottom: 14px; }
+.band .lede { margin: 0 auto 32px; }
+.band__cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* --- footer ------------------------------------------------------------- */
+
+.foot {
+  background: var(--ink);
+  color: rgba(232, 237, 233, .62);
+  --fg: #e8ede9;
+  --fg-muted: rgba(232, 237, 233, .62);
+  --brass-text: var(--brass);
+  --rule: rgba(232, 237, 233, .14);
+  padding: 56px 24px 26px;
+  font-size: .88rem;
+}
+.foot__grid {
+  max-width: var(--page);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: 36px;
+  padding-bottom: 34px;
+}
+.foot h4 {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.foot a {
+  display: block;
+  text-decoration: none;
+  padding: 3px 0;
+  transition: color .18s;
+}
+.foot a:hover { color: var(--brass-lt); }
+.foot p { max-width: 34ch; }
+.foot__bar {
+  max-width: var(--page);
+  margin-inline: auto;
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .09em;
+}
+
+/* --- print sequence ----------------------------------------------------- */
+/* lines reveal top-to-bottom, as if fed out of the printer */
+
+@keyframes feed {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(4px); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0);    transform: none; }
+}
+@keyframes press {
+  0%   { opacity: 0; transform: rotate(-9deg) scale(1.7); }
+  55%  { opacity: 1; transform: rotate(-3deg) scale(1); }
+  68%  { transform: rotate(-3deg) scale(.955); }
+  100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+}
+
+.js .receipt--live [data-feed] {
+  animation: feed .2s cubic-bezier(.2, .75, .3, 1) both;
+  animation-delay: calc(var(--i) * 85ms + 260ms);
+}
+.js .receipt--live .stamp {
+  animation: press .42s cubic-bezier(.2, .8, .3, 1) both;
+  animation-delay: calc(var(--stamp-at) * 85ms + 500ms);
+}
+
+/* --- responsive --------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr) 300px; }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+
+  /* six nav items plus the button need the gap back before the burger takes over */
+  .head nav { gap: 18px; }
+  .head nav a:not(.btn) { font-size: .82rem; }
+}
+
+@media (max-width: 860px) {
+  :root { --gutter: 34px; }
+
+  .head nav {
+    position: absolute;
+    inset: 100% 0 auto;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(232, 237, 233, .13);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px 20px;
+    display: none;
+  }
+  .head nav a:not(.btn) { padding: 12px 0; border-bottom: 1px solid rgba(232, 237, 233, .1); }
+  .head nav a[aria-current='page'] { border-bottom-color: var(--brass-text); }
+  .head nav .btn { margin-top: 16px; justify-content: center; }
+  .head[data-open='true'] nav { display: flex; }
+  .head__in { position: relative; }
+
+  .burger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    position: relative;
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #e8ede9;
+  }
+
+  /* The word "Menu" is small mono by design, which leaves a 34x19 tap target on
+     a phone. These pseudo-elements grow the hit area to 44px without growing the
+     header row — padding here would push the whole bar taller. */
+  .burger::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: max(100%, 44px);
+    height: 44px;
+  }
+  .brand::after { height: 44px; }
+
+  .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: 46px; }
+  .hero__receipt { max-width: 340px; }
+
+  .ledger { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+  .ledger__rail { border-top: 0; padding-top: 0; }
+  .ledger__rail .count { display: none; }
+  .ledger__body { border-top: 0; padding-top: 0; }
+
+  .plans { grid-template-columns: minmax(0, 1fr); gap: 34px; max-width: 400px; margin-inline: auto; }
+  .chans { grid-template-columns: minmax(0, 1fr); }
+  .chan { border-left: 0; border-top: 1px solid var(--rule); }
+  .chan:first-child { border-top: 0; }
+
+  .contactgrid { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
+  .contactgrid .info {
+    padding-left: 0;
+    padding-top: 34px;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 620px) {
+  /* Mono labels ride at 10.5px on the desktop grid, which is fine at reading
+     distance on a monitor and mean on a phone. The receipt's own small print
+     keeps its size — tiny print is the point of a receipt. */
+  .eyebrow,
+  .foot__bar,
+  .info__row h3 { font-size: .74rem; }
+  .facts dt,
+  .day__row .tag,
+  .field label,
+  .foot h4 { font-size: .72rem; }
+  .plan__flag { font-size: .7rem; }
+
+  /* 16px is the threshold below which iOS Safari zooms the page on focus, and
+     the extra padding takes each field from a 35px to a 44px target. */
+  .field input,
+  .field select,
+  .field textarea { font-size: 1rem; padding: 12px 0; }
+
+  .facts { grid-template-columns: 1fr 1fr; }
+  .facts div:nth-child(3) { border-left: 0; }
+  .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+
+  .vals { grid-template-columns: minmax(0, 1fr); }
+  .val, .vals .val:nth-child(even) { padding: 22px 0; border-left: 0; }
+
+  /* Single column on a phone. Each selector has to match the specificity of the
+     desktop rule it overrides — a media query contributes none of its own, and
+     anything left in column 2 here would open a second, implicit column. */
+  .day__row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding-left: 20px; }
+  .day__row h3,
+  .day__row .tag,
+  .day__row p:not(.day__t) { grid-column: 1; }
+
+  .leak { grid-template-columns: minmax(0, 1fr); }
+  .leak .cost { grid-row: auto; grid-column: 1; margin-top: 2px; }
+
+  .form__pair { grid-template-columns: minmax(0, 1fr); }
+  .foot__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+
+  /* a dotted leader needs room on both sides of it; below this width the
+     module heading and its attribute stack instead of squeezing */
+  .mod__top { flex-wrap: wrap; }
+  .mod__top .led__dots { display: none; }
+  .mod__top .led__val { flex-basis: 100%; margin-top: 3px; }
+}
+
+/* --- reduced motion ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: .001ms !important;
+  }
+  .js .receipt--live [data-feed],
+  .js .receipt--live .stamp { opacity: 1; clip-path: none; }
+}
+
+/* --- print -------------------------------------------------------------- */
+
+@media print {
+  .head, .burger, .band__cta { display: none; }
+  body { background: #fff; color: #000; }
+  .sec--ink, .hero, .foot { background: #fff; color: #000; --fg: #000; --fg-muted: #333; }
+}

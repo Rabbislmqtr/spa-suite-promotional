@@ -24,7 +24,8 @@ spa-suite-promotional/
 │   ├── index.html                  ← Main promotional landing page
 │   ├── about.html                  ← About Us page
 │   ├── support.html                ← Support & FAQ page
-│   └── contact.html                ← Contact page with WhatsApp form
+│   ├── contact.html                ← Contact page with WhatsApp form
+│   └── assets/                     ← site.css and site.js, shared by the four pages
 │
 ├── 📂 images-english/              ← Social media image templates (EN)
 │   ├── social-media-posts.html     ← 8 Instagram/Facebook posts (1080×1080)
