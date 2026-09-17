@@ -341,6 +341,31 @@ a { color: inherit; }
 .head nav a[aria-current='page'] { color: #e8ede9; border-bottom-color: var(--brass-text); }
 
 .burger { display: none; }
+/* --- language switch ----------------------------------------------------- */
+
+/* A sibling of <nav>, not a link inside it: the nav collapses behind the burger
+   on a phone, and the switch has to stay one tap away. Mirrors with the header
+   because the flex row follows the writing direction. */
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border: 1px solid rgba(232, 237, 233, .3);
+  border-radius: 2px;
+  color: #e8ede9;
+  font-family: var(--mono);
+  font-size: .76rem;
+  letter-spacing: .07em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .18s, border-color .18s;
+}
+.lang:hover { color: var(--brass-lt); border-color: var(--brass-lt); }
+/* The switch is the one label that changes script without changing page. The
+   Arabic label must not inherit the mono tracking: in Arabic the joins are the
+   script, and letter-spacing prises them apart. */
+.lang:lang(ar) { letter-spacing: normal; }
 
 /* --- hero --------------------------------------------------------------- */
 
@@ -779,6 +804,73 @@ a { color: inherit; }
 .prose p { margin-bottom: 18px; max-width: 68ch; color: var(--fg-muted); }
 .prose p:last-child { margin-bottom: 0; }
 .prose strong { color: var(--fg); font-weight: 500; }
+/* --- long-form: legal pages --------------------------------------------- */
+
+.prose h2 { margin-bottom: 12px; }
+.prose h3 {
+  font-family: var(--mono);
+  font-size: .70rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 28px 0 10px;
+}
+.prose h2 + h3 { margin-top: 0; }
+.prose ul, .prose ol {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  max-width: 68ch;
+  color: var(--fg-muted);
+}
+.prose li { margin-bottom: 9px; padding-left: 4px; }
+.prose li::marker { color: var(--brass-text); }
+/* site.css resets every list with `list-style: none` because the design builds its
+   lists from dotted-leader rows. Long-form legal prose is the exception: a marker
+   carries the structure once a clause has run to five bullets. */
+.prose ul { list-style: disc; }
+.prose ul ul { list-style: circle; }
+.prose ol { list-style: decimal; }
+.prose a { color: var(--fg); text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
+.prose a:hover { color: var(--brass-text); }
+
+.legal__meta {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  color: var(--fg-muted);
+  margin-bottom: 24px;
+}
+.legal__toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0 40px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  counter-reset: none;
+}
+.legal__toc a {
+  display: block;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--fg);
+  transition: color .18s;
+}
+.legal__toc a:hover { color: var(--brass-text); }
+
+/* the footer's identity line: who you are contracting with, and where data sits */
+.foot__legal {
+  max-width: var(--page);
+  margin-inline: auto;
+  border-top: 1px solid var(--rule);
+  padding: 20px 0 2px;
+  font-size: .8rem;
+  line-height: 1.65;
+}
+.foot .foot__legal p { max-width: 92ch; }
+.foot__legal strong { color: var(--fg); font-weight: 500; }
+.foot .foot__legal a { display: inline; padding: 0; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
 
 /* --- CTA band ----------------------------------------------------------- */
 
@@ -976,6 +1068,12 @@ a { color: inherit; }
 
   .leak { grid-template-columns: minmax(0, 1fr); }
   .leak .cost { grid-row: auto; grid-column: 1; margin-top: 2px; }
+
+  /* Brand, burger and language switch share one row on a phone. At the desktop
+     28px gap the three come to 322px — 2px wider than the narrowest phones
+     still in use — and 14px keeps the 44px tap targets apart without moving
+     anything above this breakpoint. */
+  .head__in { gap: 14px; }
 
   .form__pair { grid-template-columns: minmax(0, 1fr); }
   .foot__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }

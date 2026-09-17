@@ -1,0 +1,120 @@
+/* ==========================================================================
+Spa Suite — Arabic (right-to-left) layer
+Loaded only by the pages under /ar/, after site.css. The English pages never
+load it, so nothing here can move the Latin layout.
+
+Two jobs:
+
+1. Type. site.css displays in Bodoni Moda, sets text in Karla and labels in
+   IBM Plex Mono. None of the three carries Arabic glyphs, so the Arabic pages
+   swap in Amiri for display and IBM Plex Sans Arabic for body and labels.
+   Latin runs inside Arabic text — the brand name, figures, urls, the phone
+   number — still render, because both faces carry Latin, and IBM Plex Sans
+   Arabic sits on the same skeleton as the IBM Plex Mono already in use.
+
+2. Direction. site.css is written with a handful of physical properties:
+   border-left on .facts / .chan / .day / .val, padding-left inside .prose,
+   the margin-left:auto that parks the nav, .plan__flag pinned at right:24px.
+   Those are mirrored here rather than rewritten in the shared file, so the
+   English layout stays byte-for-byte what it was.
+========================================================================== */
+
+/* --- type --------------------------------------------------------------- */
+
+[dir="rtl"] {
+  --display: 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif;
+  --body: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif;
+  --mono: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+}
+
+/* Arabic is cursive: letter-spacing prises the joins apart, and there is no
+   upper case to transform into. Every label keeps its colour, size, weight and
+   position and loses only those two properties. */
+[dir="rtl"] .eyebrow,
+[dir="rtl"] .mono,
+[dir="rtl"] .brand,
+[dir="rtl"] .burger,
+[dir="rtl"] .lang,
+[dir="rtl"] .facts dt,
+[dir="rtl"] .day__t,
+[dir="rtl"] .led__val,
+[dir="rtl"] .info__row h3,
+[dir="rtl"] .legal__meta,
+[dir="rtl"] .plan__note,
+[dir="rtl"] .plan__flag,
+[dir="rtl"] .receipt,
+[dir="rtl"] .stamp,
+[dir="rtl"] .foot h4,
+[dir="rtl"] .foot__bar,
+[dir="rtl"] .foot__legal,
+[dir="rtl"] .faq__q .sign {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* Arabic glyphs sit lower and taller on the line than Bodoni Moda, so the tight
+   display leading in site.css cuts their descenders once the face changes. */
+[dir="rtl"] .d-xl { font-size: clamp(2.3rem, 5vw, 4.1rem); line-height: 1.32; letter-spacing: 0; }
+[dir="rtl"] .d-l { font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.4; letter-spacing: 0; }
+[dir="rtl"] .d-m { line-height: 1.5; letter-spacing: 0; }
+[dir="rtl"] .lede { line-height: 1.9; max-width: 52ch; }
+[dir="rtl"] .hero__lede { max-width: 52ch; }
+[dir="rtl"] .prose p { line-height: 1.9; }
+[dir="rtl"] .prose ul,
+[dir="rtl"] .prose ol { padding-left: 0; padding-right: 22px; }
+[dir="rtl"] .prose li { padding-left: 0; padding-right: 4px; }
+[dir="rtl"] .faq__q { text-align: right; }
+[dir="rtl"] .legal__toc a { padding: 9px 0; }
+
+/* --- mirrored rules ----------------------------------------------------- */
+
+[dir="rtl"] .skip { left: auto; right: 12px; }
+[dir="rtl"] .head nav { margin-left: 0; margin-right: auto; }
+
+[dir="rtl"] .facts div { border-left: 0; border-right: 1px solid var(--rule); }
+[dir="rtl"] .facts div:first-child { border-right: 0; }
+
+[dir="rtl"] .day { border-left: 0; border-right: 1px solid var(--rule); }
+[dir="rtl"] .day__row { padding: 0 26px 30px 0; }
+[dir="rtl"] .day__row::before { left: auto; right: -4px; }
+
+[dir="rtl"] .plan__flag { right: auto; left: 24px; }
+
+[dir="rtl"] .chan { border-left: 0; border-right: 1px solid var(--rule); }
+[dir="rtl"] .chan:first-child { border-right: 0; }
+
+[dir="rtl"] .contactgrid .info {
+  padding-left: 0;
+  padding-right: clamp(30px, 4vw, 56px);
+  border-left: 0;
+  border-right: 1px solid var(--rule);
+}
+
+[dir="rtl"] .val { padding: 26px 0 26px 30px; }
+[dir="rtl"] .val:nth-child(even) {
+  padding-left: 0;
+  padding-right: 30px;
+  border-left: 0;
+  border-right: 1px solid var(--rule);
+}
+
+/* --- responsive mirrors ------------------------------------------------- */
+
+@media (max-width: 860px) {
+  [dir="rtl"] .burger { margin-left: 0; margin-right: auto; }
+  [dir="rtl"] .chan { border-right: 0; border-top: 1px solid var(--rule); }
+  [dir="rtl"] .chan:first-child { border-top: 0; }
+  [dir="rtl"] .contactgrid .info {
+    padding-right: 0;
+    padding-top: 34px;
+    border-right: 0;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 620px) {
+  [dir="rtl"] .facts div:nth-child(3) { border-right: 0; }
+  [dir="rtl"] .val,
+  [dir="rtl"] .vals .val:nth-child(even) { padding: 22px 0; border-right: 0; }
+  [dir="rtl"] .day__row { padding: 0 20px 30px 0; }
+}

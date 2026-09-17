@@ -25,7 +25,15 @@ spa-suite-promotional/
 │   ├── about.html                  ← About Us page
 │   ├── support.html                ← Support & FAQ page
 │   ├── contact.html                ← Contact page with WhatsApp form
-│   └── assets/                     ← site.css and site.js, shared by the four pages
+│   ├── privacy.html                ← Privacy policy
+│   ├── terms.html                  ← Terms of Service
+│   ├── refunds.html                ← Refunds & cancellation
+│   ├── 📂 ar/                    ← Arabic (right-to-left) pages
+│   │   ├── index.html            ← Arabic landing page
+│   │   ├── privacy.html          ← الخصوصية
+│   │   ├── terms.html            ← شروط الخدمة
+│   │   └── refunds.html          ← الاسترداد والإلغاء
+│   └── assets/                     ← site.css, site-rtl.css and site.js, shared
 │
 ├── 📂 images-english/              ← Social media image templates (EN)
 │   ├── social-media-posts.html     ← 8 Instagram/Facebook posts (1080×1080)
@@ -90,13 +98,34 @@ git push
 
 ## 📱 What's Included
 
-### Website Pages (4 pages)
+### Website Pages (11 pages across two languages)
 | Page | File | Description |
 |------|------|-------------|
 | Landing | `docs/index.html` | Full promotional page with features, pricing, CTA |
 | About Us | `docs/about.html` | Company story, values, journey timeline |
 | Support | `docs/support.html` | FAQ, help options, getting started guide |
 | Contact | `docs/contact.html` | Contact form (auto-sends to WhatsApp) |
+| Privacy | `docs/privacy.html` | What is stored, where it sits, cookies, retention |
+| Terms | `docs/terms.html` | Terms of Service for the subscription |
+| Refunds | `docs/refunds.html` | Refunds and cancellation policy |
+
+### Arabic Pages (4 pages, `docs/ar/`)
+
+Same design, right-to-left, with `docs/assets/site-rtl.css` on top of the shared
+stylesheet. It swaps in Amiri for display and IBM Plex Sans Arabic for body and
+labels, drops the mono letter-spacing that would break Arabic letter joins, and
+mirrors the physical-direction rules in `site.css`. The switch in the header is a
+sibling of the nav, so it stays reachable on a phone where the nav is collapsed.
+
+| Page | File | Description |
+|------|------|-------------|
+| Arabic landing | `docs/ar/index.html` | الصفحة الرئيسية بالعربية |
+| الخصوصية | `docs/ar/privacy.html` | Privacy policy in Arabic |
+| شروط الخدمة | `docs/ar/terms.html` | Terms of Service in Arabic |
+| الاسترداد والإلغاء | `docs/ar/refunds.html` | Refunds and cancellation in Arabic |
+
+`about.html`, `support.html` and `contact.html` are English only so far; the switch
+on those three points Arabic readers at the Arabic landing page.
 
 ### Social Media Templates (18 posts)
 | Platform | English | Arabic |
@@ -163,15 +192,28 @@ git push
 
 ## 📝 Before Publishing
 
-1. **Replace placeholders** in all files:
+1. **Fill the identity placeholders.** The three legal pages and every footer carry
+   these tokens, and the site should not be published while any remain:
+
+   | Token | What it becomes |
+   |-------|-----------------|
+   | `{{LEGAL_ENTITY}}` | Registered company name |
+   | `{{CR_NUMBER}}` | Commercial registration number |
+   | `{{REGISTERED_ADDRESS}}` | Registered address |
+   | `{{HOSTING_REGION}}` | Region your hosting sits in (privacy page only) |
+   | `{{HOSTING_PROVIDER}}` | Hosting provider, if you host it for customers (privacy page only) |
+
+   The Arabic pages carry the same tokens. Check both trees with
+
+2. **Replace placeholders** in all files:
    - `97439929558` → Your WhatsApp number ✅ (already set)
    - `rabbilslmqtr@gmail.com` → Your email ✅ (already set)
 
-2. **Add your logo** to exported images
+3. **Add your logo** to exported images
 
-3. **Generate AI images** using prompts in `ads/image-prompts.md`
+4. **Generate AI images** using prompts in `ads/image-prompts.md`
 
-4. **Follow the posting schedule** in `copy/marketing-copy.md`
+5. **Follow the posting schedule** in `copy/marketing-copy.md`
 
 ---
 
